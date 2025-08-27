@@ -37,4 +37,7 @@ app.get("/", (req, res) => res.json({ message: "API running!" }));
 // }
 
 // Export app for Vercel
+app.get("/api/test", (req, res) => {
+    res.json({ message: "Test endpoint working!" });
+});
 module.exports = serverless(app);
