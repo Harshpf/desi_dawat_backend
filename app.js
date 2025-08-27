@@ -3,7 +3,7 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 const cors = require("cors");
-
+const serverless = require('serverless-http');
 const app = express();
 
 // Middlewares
@@ -37,4 +37,4 @@ app.get("/", (req, res) => res.json({ message: "API running!" }));
 // }
 
 // Export app for Vercel
-module.exports = app;
+module.exports = serverless(app);
