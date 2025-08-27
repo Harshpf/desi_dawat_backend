@@ -6,7 +6,7 @@ const cors = require("cors");
 
 const app = express();
 
-//Middlewares
+// Middlewares
 app.use(express.json());
 app.use(cookieParser());
 
@@ -17,19 +17,24 @@ app.use(cors({
     allowedHeaders: "Origin,X-Requested-With,Content-Type,Accept,Authorization" 
 }));
 
-// database connection
-const {mongoDB}= require("./config/mongodb");
+// Database connection
+const { mongoDB } = require("./config/mongodb");
 mongoDB();
 
-// api_call
+// Routes
 const user = require("./route/user/allroutes");
 const admin = require("./route/admin/allroutes");
 
+app.use("/api/admin", admin);
+app.use("/api/user", user);
 
-//api
-app.use("/api/admin",admin)
-app.use("/api/user",user)
+app.get("/", (req, res) => res.json({ message: "API running!" }));
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server running on port ${process.env.PORT}`);
-});
+// For local development
+// if (process.env.NODE_ENV !== "production") {
+//     const PORT = process.env.PORT || 5000;
+//     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// }
+
+// Export app for Vercel
+module.exports = app;
