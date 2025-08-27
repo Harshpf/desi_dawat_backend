@@ -59,3 +59,11 @@ exports.login = async(req,res) =>{
         res.status(500).json({msg:"error from login", message:error.message})
     }
 }
+
+exports.test = async(req,res)=>{
+    try{
+        res.status(200).json("this is test");
+    }catch(error){
+        res.status(500).json("this is test")
+    }
+}
